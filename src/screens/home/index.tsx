@@ -7,14 +7,16 @@ import {
   FlatList,
   Image,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Feather';
 import initials from 'initials';
 import {connect} from 'react-redux';
 
 import {CustomView, Text, Button} from '../../components/';
 import {useFocusEffect} from '@react-navigation/native';
-import {colors} from '../../theme';
+import {colors, sizes} from '../../theme';
 import {ScrollView} from 'react-native-gesture-handler';
+import {setFirst} from 'src/store/action/splash';
 
 function Home({navigation, auth}: any) {
   const [action] = React.useState([
@@ -44,23 +46,22 @@ function Home({navigation, auth}: any) {
       {
         title: 'Gerakan Perumahan Bebas Sampah Plastik 100.000 point',
         subtitle: 'Perumahan akan di bersihkan dalam rangka 17 agustusan',
-        image: 'https://griajkt08.files.wordpress.com/2013/11/dsc_0118.jpg',
+        image: require('../../../assets/images/1.jpg'),
       },
       {
         title: 'Bank sampah kita semua',
         subtitle: 'Bantu Mendirikan bank sampah RT 300.000 poin',
-        image:
-          'https://lh3.googleusercontent.com/proxy/AyaO-3S7npcdPHByO0-vEwQtiB-4QBv7Q5KftrjCxlr9GPcHYA7_JQn59yZjbS-FtnrxXH-BdsMmo-cFN9EHdNxN9ipLYjUfAA6TidPFVlhcnxBJogc',
+        image: require('../../../assets/images/2.jpg'),
       },
       {
         title: 'Gerakan swalayan bersih',
         subtitle:
           'Ayo Jadi Pahlawan Lingkungan, Tempatkan Tong iOT Mountrash di Lokasi Swalayan Mitramu Dapatkan 500.000 point',
-        image:
-          'https://obs.line-scdn.net/0h3uvmNspnbFpLFEV08W4TDXFCbzV4eH9ZLyI9RBt6Mm4xISNfcXF2NGhAYDhmdisEJSYjP2kdd2s0LS9ZI3J2/w644',
+        image: require('../../../assets/images/3.jpg'),
       },
     ]),
-    name = auth.auth_data.name;
+    name = auth.auth_data.name,
+    [isFirst, setFirst] = React.useState(true);
 
   const sayHello = () => {
     var today = new Date();
@@ -113,7 +114,7 @@ function Home({navigation, auth}: any) {
   const renderNews = ({item}: any) => {
     return (
       <View style={styles.boxNews}>
-        <Image source={{uri: item.image}} style={styles.imageNews} />
+        <Image source={item.image} style={styles.imageNews} />
         <View style={styles.boxTextNews}>
           <Text
             size={7.5}
@@ -137,7 +138,7 @@ function Home({navigation, auth}: any) {
       />
       <View style={styles.headerApp}>
         <Text type="bold" style={styles.textHeader} size={15} color="white">
-          Mountrash
+          Collabor
         </Text>
       </View>
       <ScrollView>
@@ -188,19 +189,13 @@ function Home({navigation, auth}: any) {
             </Text>
 
             <View style={styles.newsFeed}>
-              <Image
-                source={{
-                  uri:
-                    'https://assets-a1.kompasiana.com/statics/crawl/5529d7076ea83499488b4567.jpeg',
-                }}
-                style={styles.image}
-              />
+              <Image source={news[0].image} style={styles.image} />
               <View style={styles.textNews}>
                 <Text type="bold" color="white" size={10}>
-                  Gerakan 1000 kantong sampah
+                  {news[0].title}
                 </Text>
                 <Text type="regular" color="white">
-                  Akan dihadiri oleh seluruh warga Tangerang Selatan
+                  {news[0].subtitle}
                 </Text>
               </View>
             </View>
@@ -212,6 +207,57 @@ function Home({navigation, auth}: any) {
           </View>
         </View>
       </ScrollView>
+      <Modal isVisible={isFirst} onBackdropPress={() => setFirst(false)}>
+        <View
+          style={{
+            flex: 0.4,
+            width: '80%',
+            alignSelf: 'center',
+            backgroundColor: 'white',
+            borderRadius: sizes.radiusHigh,
+          }}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              height: 30,
+              width: '100%',
+              borderRadius: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Button onPress={() => setFirst(false)}>
+              <Text type="thin" color="black">
+                Klik mana saja untuk menghilangkan popup
+              </Text>
+            </Button>
+          </View>
+          <Image
+            source={require('../../../assets/images/popup.jpg')}
+            style={{
+              flex: 1,
+              width: '105%',
+              alignSelf: 'center',
+              borderRadius: sizes.radiusHigh,
+            }}
+          />
+
+          <Text
+            type="semibold"
+            style={{
+              width: '100%',
+              position: 'absolute',
+              bottom: 20,
+              borderWidth: 1,
+              borderColor: 'white',
+              backgroundColor: '#FFFFFF20',
+              textAlign: 'left',
+            }}
+            size={24}
+            color="white">
+            Ayo siapkan team mu, dapatkan 100.000 poin
+          </Text>
+        </View>
+      </Modal>
     </CustomView>
   );
 }
