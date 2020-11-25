@@ -138,7 +138,7 @@ function Home({navigation, auth}: any) {
       />
       <View style={styles.headerApp}>
         <Text type="bold" style={styles.textHeader} size={15} color="white">
-          Collabor
+          Trashcollabor
         </Text>
       </View>
       <ScrollView>

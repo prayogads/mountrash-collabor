@@ -18,11 +18,11 @@ function SplashScreen({dispatch}: any) {
     <View style={styles.container}>
       <View style={styles.containerImage}>
         <Image
-          source={require('../../../assets/images/Logo.png')}
+          source={require('../../../assets/images/trashcollabor_icon.png')}
           style={styles.logo}
         />
         <Text type="bold" size={20}>
-          Mountrash
+          Trashcollabor
         </Text>
       </View>
 
