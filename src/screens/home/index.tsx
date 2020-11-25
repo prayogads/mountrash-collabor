@@ -16,7 +16,6 @@ import {CustomView, Text, Button} from '../../components/';
 import {useFocusEffect} from '@react-navigation/native';
 import {colors, sizes} from '../../theme';
 import {ScrollView} from 'react-native-gesture-handler';
-import {setFirst} from 'src/store/action/splash';
 
 function Home({navigation, auth}: any) {
   const [action] = React.useState([
@@ -207,32 +206,32 @@ function Home({navigation, auth}: any) {
           </View>
         </View>
       </ScrollView>
-      <Modal isVisible={isFirst} onBackdropPress={() => setFirst(false)}>
+      <Modal
+        isVisible={isFirst}
+        animationOut="fadeOutDown"
+        onBackdropPress={() => setFirst(false)}>
         <View
           style={{
             flex: 0.4,
             width: '80%',
             alignSelf: 'center',
-            backgroundColor: 'white',
+            backgroundColor: 'transparent',
             borderRadius: sizes.radiusHigh,
           }}>
           <View
             style={{
-              backgroundColor: 'white',
+              backgroundColor: 'transparent',
               height: 30,
               width: '100%',
               borderRadius: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: 'flex-end',
             }}>
             <Button onPress={() => setFirst(false)}>
-              <Text type="thin" color="black">
-                Klik mana saja untuk menghilangkan popup
-              </Text>
+              <Icon name="x" size={24} color="white" />
             </Button>
           </View>
           <Image
-            source={require('../../../assets/images/popup.jpg')}
+            source={require('../../../assets/images/popup.png')}
             style={{
               flex: 1,
               width: '105%',
@@ -251,8 +250,9 @@ function Home({navigation, auth}: any) {
               borderColor: 'white',
               backgroundColor: '#FFFFFF20',
               textAlign: 'left',
+              paddingHorizontal: 20,
             }}
-            size={24}
+            size={13}
             color="white">
             Ayo siapkan team mu, dapatkan 100.000 poin
           </Text>
